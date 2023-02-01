@@ -59,6 +59,9 @@ class GameScene: SKScene {
     var turnCountLabel: SKLabelNode!
     var jackpotNumber: SKLabelNode!
     var jackpotLabel: SKLabelNode!
+    
+    var highestPayoutLabel: SKLabelNode!
+    var highestPayoutAmount: SKLabelNode!
 
     // playerMoney
     var creditLabel: SKLabelNode!
@@ -105,7 +108,9 @@ class GameScene: SKScene {
     // Quit button
     var quitButton: SKNode!
     
-    var fontName: String = "ArialRoundedMTBold"
+    var helpButton: SKLabelNode!
+    
+    var fontName: String = "MarkerFelt-Wide"
     var fontSize_25: Int = 25
     var fontSize_30: Int = 30
     var fontSize_36: Int = 36
@@ -113,42 +118,12 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
 
-        // resultLabel
-        resultLabel = SKLabelNode(text: "Spin to Win")
-        resultLabel.horizontalAlignmentMode = .center
-        resultLabel.position = CGPoint(x: 0, y: self.frame.size.height * 0.5 - 475)
-        resultLabel.zPosition = 1
-        resultLabel.fontName = fontName
-        resultLabel.fontSize = CGFloat(fontSize_36)
-        resultLabel.fontColor = UIColor(displayP3Red: 248, green: 179, blue: 9, alpha: 1)
-        self.addChild(resultLabel)
-        
-        // winsCountLabel
-        winsCountLabel = SKLabelNode(text: "Wins: 0")
-        winsCountLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 550, y: self.frame.size.height * 0.5 - 435)
-        winsCountLabel.zPosition = 1
-        winsCountLabel.fontName = fontName
-        winsCountLabel.fontSize = CGFloat(fontSize_25)
-        winsCountLabel.fontColor = UIColor(displayP3Red: 248, green: 179, blue: 9, alpha: 1)
-        self.addChild(winsCountLabel)
-        
-        // lostCountLabel
-        lostCountLabel = SKLabelNode(text: "Losses: 0")
-        lostCountLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 400, y: self.frame.size.height * 0.5 - 435)
-        lostCountLabel.zPosition = 1
-        lostCountLabel.fontName = fontName
-        lostCountLabel.fontSize = CGFloat(fontSize_25)
-        lostCountLabel.fontColor = UIColor(displayP3Red: 248, green: 179, blue: 9, alpha: 1)
-        self.addChild(lostCountLabel)
-        
-        // turnCountLabel
-        turnCountLabel = SKLabelNode(text: "Turns: 0")
-        turnCountLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 250, y: self.frame.size.height * 0.5 - 435)
-        turnCountLabel.zPosition = 1
-        turnCountLabel.fontName = fontName
-        turnCountLabel.fontSize = CGFloat(fontSize_25)
-        turnCountLabel.fontColor = UIColor(displayP3Red: 248, green: 179, blue: 9, alpha: 1)
-        self.addChild(turnCountLabel)
+        // Main background
+        let bg_main = SKShapeNode(rectOf: CGSize(width: self.frame.size.width, height: self.frame.size.height))
+        bg_main.zPosition = -3
+        bg_main.fillColor = UIColor(red: 0.00, green: 0.07, blue: 0.20, alpha: 1.00)
+        bg_main.position = CGPoint(x: 0, y: 0)
+        self.addChild(bg_main)
         
         // Logo
         let slotGraphic = SKSpriteNode(texture: SKTexture(imageNamed: "app_logo"), size: CGSize(width: 400, height: 150))
@@ -157,22 +132,79 @@ class GameScene: SKScene {
         self.addChild(slotGraphic)
         
         // Jackpot Label
-        jackpotLabel = SKLabelNode(text: "JACKPOT")
-        jackpotLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 380, y: self.frame.size.height * 0.5 - 250)
+        jackpotLabel = SKLabelNode(text: "Global Jackpot:")
+        jackpotLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 450, y: self.frame.size.height * 0.5 - 250)
         jackpotLabel.zPosition = 1
         jackpotLabel.fontName = fontName
         jackpotLabel.fontSize = CGFloat(fontSize_36)
-        jackpotLabel.fontColor = UIColor(displayP3Red: 248, green: 179, blue: 9, alpha: 1)
+        jackpotLabel.fontColor = UIColor.white
         self.addChild(jackpotLabel)
         
         // Jackpot Number
         jackpotNumber = SKLabelNode(text: "\(jackpot)")
-        jackpotNumber.position = CGPoint(x: self.frame.size.width * 0.5 - 380, y: self.frame.size.height * 0.5 - 290)
+        jackpotNumber.position = CGPoint(x: self.frame.size.width * 0.5 - 250, y: self.frame.size.height * 0.5 - 250)
         jackpotNumber.zPosition = 1
         jackpotNumber.fontName = fontName
         jackpotNumber.fontSize = CGFloat(fontSize_40)
         jackpotNumber.fontColor = UIColor.white
         self.addChild(jackpotNumber)
+        
+        // Highest Payout Label
+        highestPayoutLabel = SKLabelNode(text: "Highest payout:")
+        highestPayoutLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 450, y: self.frame.size.height * 0.5 - 290)
+        highestPayoutLabel.zPosition = 1
+        highestPayoutLabel.fontName = fontName
+        highestPayoutLabel.fontSize = CGFloat(fontSize_36)
+        highestPayoutLabel.fontColor = UIColor.white
+        self.addChild(highestPayoutLabel)
+        
+        // Highest Payout Number
+        highestPayoutAmount = SKLabelNode(text: "\(jackpot)")
+        highestPayoutAmount.position = CGPoint(x: self.frame.size.width * 0.5 - 250, y: self.frame.size.height * 0.5 - 290)
+        highestPayoutAmount.zPosition = 1
+        highestPayoutAmount.fontName = fontName
+        highestPayoutAmount.fontSize = CGFloat(fontSize_40)
+        highestPayoutAmount.fontColor = UIColor.white
+        self.addChild(highestPayoutAmount)
+        
+        // resultLabel
+        resultLabel = SKLabelNode(text: "Spin to Win")
+        resultLabel.horizontalAlignmentMode = .center
+        resultLabel.position = CGPoint(x: 0, y: self.frame.size.height * 0.5 - 475)
+        resultLabel.zPosition = 1
+        resultLabel.fontName = fontName
+        resultLabel.fontSize = CGFloat(fontSize_36)
+        resultLabel.fontColor = UIColor.white
+        self.addChild(resultLabel)
+        
+        // winsCountLabel
+        winsCountLabel = SKLabelNode(text: "Wins: 0")
+        winsCountLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 550, y: self.frame.size.height * 0.5 - 435)
+        winsCountLabel.zPosition = 1
+        winsCountLabel.fontName = fontName
+        winsCountLabel.fontSize = CGFloat(fontSize_25)
+        winsCountLabel.fontColor = UIColor.white
+        self.addChild(winsCountLabel)
+        
+        // lostCountLabel
+        lostCountLabel = SKLabelNode(text: "Losses: 0")
+        lostCountLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 400, y: self.frame.size.height * 0.5 - 435)
+        lostCountLabel.zPosition = 1
+        lostCountLabel.fontName = fontName
+        lostCountLabel.fontSize = CGFloat(fontSize_25)
+        lostCountLabel.fontColor = UIColor.white
+        self.addChild(lostCountLabel)
+        
+        // turnCountLabel
+        turnCountLabel = SKLabelNode(text: "Turns: 0")
+        turnCountLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 250, y: self.frame.size.height * 0.5 - 435)
+        turnCountLabel.zPosition = 1
+        turnCountLabel.fontName = fontName
+        turnCountLabel.fontSize = CGFloat(fontSize_25)
+        turnCountLabel.fontColor = UIColor.white
+        self.addChild(turnCountLabel)
+        
+        
         
         
         // playerMoney number
@@ -204,7 +236,7 @@ class GameScene: SKScene {
         self.addChild(betAmount)
         
         // Bets label
-        betLabel = SKLabelNode(text: "BETS")
+        betLabel = SKLabelNode(text: "BET")
         betLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 380, y: self.frame.size.height * 0.5 - 380)
         betLabel.zPosition = 1
         betLabel.fontName = fontName
@@ -231,12 +263,7 @@ class GameScene: SKScene {
         self.addChild(winnerPaidLabel)
         
         
-        // Main background
-        let bg_main = SKShapeNode(rectOf: CGSize(width: self.frame.size.width, height: self.frame.size.height))
-        bg_main.zPosition = -3
-        bg_main.fillColor = UIColor(red: 0.00, green: 0.07, blue: 0.20, alpha: 1.00)
-        bg_main.position = CGPoint(x: 0, y: 0)
-        self.addChild(bg_main)
+        
         
         // Slot background
         let bg_slot = SKShapeNode(rectOf: CGSize(width: 500, height: 350))
@@ -326,6 +353,16 @@ class GameScene: SKScene {
         quitButton.position = CGPoint(x: 180, y: -450)
         quitButton.zPosition = 1
         self.addChild(quitButton)
+        
+        // HELP button
+        helpButton = SKLabelNode(text: "Help?")
+        helpButton.position = CGPoint(x: 200, y: 540)
+        helpButton.zPosition = 1
+        helpButton.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        helpButton.fontName = "AmericanTypewriter-Bold"
+        helpButton.fontSize = CGFloat(25)
+        helpButton.fontColor = SKColor.white
+        self.addChild(helpButton)
 
     }
     
@@ -412,6 +449,10 @@ class GameScene: SKScene {
                     wait,
                     testReelValues
                 ]))
+            }
+            
+            if helpButton.contains(location){
+                setScene(sceneName: "HelpScene")
             }
         }
     }

@@ -20,6 +20,8 @@
 		1907647E29760E1E00B7462F /* mercury.png in Resources */ = {isa = PBXBuildFile; fileRef = 1907647429760E1E00B7462F /* mercury.png */; };
 		1907647F29760E1E00B7462F /* venus.png in Resources */ = {isa = PBXBuildFile; fileRef = 1907647529760E1E00B7462F /* venus.png */; };
 		1907648229760E1E00B7462F /* saturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1907647829760E1E00B7462F /* saturn.png */; };
+		19D68D7E298ADB16004EA272 /* HelpScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D68D7D298ADB16004EA272 /* HelpScene.swift */; };
+		19D68D80298ADB2B004EA272 /* HelpScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19D68D7F298ADB2B004EA272 /* HelpScene.sks */; };
 		19E44D07297722C2007D7537 /* button_spin.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E44D06297722C2007D7537 /* button_spin.png */; };
 		19E44D09297723BE007D7537 /* button_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E44D08297723BE007D7537 /* button_reset.png */; };
 		19E44D0B29772450007D7537 /* button_quit.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E44D0A29772450007D7537 /* button_quit.png */; };
@@ -49,6 +51,8 @@
 		1907647429760E1E00B7462F /* mercury.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mercury.png; sourceTree = "<group>"; };
 		1907647529760E1E00B7462F /* venus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = venus.png; sourceTree = "<group>"; };
 		1907647829760E1E00B7462F /* saturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saturn.png; sourceTree = "<group>"; };
+		19D68D7D298ADB16004EA272 /* HelpScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScene.swift; sourceTree = "<group>"; };
+		19D68D7F298ADB2B004EA272 /* HelpScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HelpScene.sks; sourceTree = "<group>"; };
 		19E44D06297722C2007D7537 /* button_spin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_spin.png; sourceTree = "<group>"; };
 		19E44D08297723BE007D7537 /* button_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reset.png; sourceTree = "<group>"; };
 		19E44D0A29772450007D7537 /* button_quit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_quit.png; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				1907645F2976004000B7462F /* Main.storyboard */,
 				190764622976004100B7462F /* Assets.xcassets */,
 				190764642976004100B7462F /* LaunchScreen.storyboard */,
+				19D68D7D298ADB16004EA272 /* HelpScene.swift */,
+				19D68D7F298ADB2B004EA272 /* HelpScene.sks */,
 			);
 			path = "MAPD-724-SlotMachine";
 			sourceTree = "<group>";
@@ -206,6 +212,7 @@
 				190764632976004100B7462F /* Assets.xcassets in Resources */,
 				1907647E29760E1E00B7462F /* mercury.png in Resources */,
 				19E44D11297729E2007D7537 /* button_spin_grey.png in Resources */,
+				19D68D80298ADB2B004EA272 /* HelpScene.sks in Resources */,
 				190764662976004100B7462F /* LaunchScreen.storyboard in Resources */,
 				1907645A2976004000B7462F /* Actions.sks in Resources */,
 				19E44D1629772E06007D7537 /* button_20.png in Resources */,
@@ -221,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1907645C2976004000B7462F /* GameScene.swift in Sources */,
+				19D68D7E298ADB16004EA272 /* HelpScene.swift in Sources */,
 				1907645E2976004000B7462F /* GameViewController.swift in Sources */,
 				190764562976004000B7462F /* AppDelegate.swift in Sources */,
 			);
