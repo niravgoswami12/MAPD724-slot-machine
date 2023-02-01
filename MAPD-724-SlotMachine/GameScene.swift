@@ -62,6 +62,12 @@ class GameScene: SKScene {
     
     var highestPayoutLabel: SKLabelNode!
     var highestPayoutAmount: SKLabelNode!
+    
+    var highestPayout: Int = 0 {
+        didSet {
+            highestPayoutAmount.text = "\(highestPayout)"
+        }
+    }
 
     // playerMoney
     var creditLabel: SKLabelNode!
@@ -89,6 +95,7 @@ class GameScene: SKScene {
             winnerPaidAmount.text = "\(winnerPaid)"
         }
     }
+    
     
     // 3 spin images as default images
     var reel_1: SKSpriteNode!
@@ -159,7 +166,7 @@ class GameScene: SKScene {
         self.addChild(highestPayoutLabel)
         
         // Highest Payout Number
-        highestPayoutAmount = SKLabelNode(text: "\(jackpot)")
+        highestPayoutAmount = SKLabelNode(text: "\(highestPayout)")
         highestPayoutAmount.position = CGPoint(x: self.frame.size.width * 0.5 - 250, y: self.frame.size.height * 0.5 - 290)
         highestPayoutAmount.zPosition = 1
         highestPayoutAmount.fontName = fontName
@@ -254,7 +261,7 @@ class GameScene: SKScene {
         self.addChild(winnerPaidAmount)
         
         // WinnerPaid label
-        winnerPaidLabel = SKLabelNode(text: "WINNER PAID")
+        winnerPaidLabel = SKLabelNode(text: "Winner Paid")
         winnerPaidLabel.position = CGPoint(x: self.frame.size.width * 0.5 - 220, y: self.frame.size.height * 0.5 - 380)
         winnerPaidLabel.zPosition = 1
         winnerPaidLabel.fontName = fontName
@@ -473,7 +480,6 @@ class GameScene: SKScene {
     
     func reset() {
         spinButton.texture = SKTexture(imageNamed: "button_spin");
-        jackpot = 5000
         turn = 0
         bets = 0
         winNumber = 0
@@ -518,7 +524,7 @@ class GameScene: SKScene {
                 break
             case 90..<96:
                 reelPick = "mercury"
-                saturn += 1
+                mercury += 1
                 break
             case 96..<99:
                 reelPick = "saturn"
@@ -594,6 +600,10 @@ class GameScene: SKScene {
             }
             
             playerMoney += winnerPaid
+            if (winnerPaid > highestPayout)
+            {
+                highestPayout = winnerPaid
+            }
             if (earth == 3) {//When All 3 earth, then there is chance that you can win jackpot
                 checkJackpot()
             }
@@ -603,6 +613,8 @@ class GameScene: SKScene {
             resultLabel.text = "You lost!"
             playerMoney -= bets
             winnerPaid = 0
+            // add 25% of bet amount to jackpot when player lose
+            jackpot += (Int)(bets / 25)
         }
         
         if (playerMoney < bets) {
@@ -623,6 +635,7 @@ class GameScene: SKScene {
         if(randomNum1 == randomNum2){
             winnerPaid = jackpot
             playerMoney += winnerPaid
+            jackpot = 5000
             showAlert(message: "Congratulations, You won jackpot of $\(winnerPaid)!!")
             resultLabel.text = "Congratulations,  You won jackpot of $\(winnerPaid)!!!!"
         }
