@@ -123,6 +123,37 @@ class GameScene: SKScene {
     var fontSize_36: Int = 36
     var fontSize_40: Int = 40
     
+    var dbManager = DBManager()
+    
+    required init?(coder decoder: NSCoder) {
+        
+        super.init(coder: decoder)
+        
+        // Get User's Highest payout from DB
+        dbManager.getUserHighestPayout(){ results in
+            if let dbHighestPayout = results {
+                if(dbHighestPayout == 0 ){
+                    // if highest payout not set then set it to 0
+                    self.dbManager.saveUserHighestPayout(amount: self.highestPayout)
+                }else{
+                    self.highestPayout = dbHighestPayout
+                }
+            }
+        }
+        
+        // Get global jackpot from DB
+        dbManager.getGlobalJackpotAmount(){ results in
+            if let dbGlobalJackpot = results {
+                if(dbGlobalJackpot == 0 ){
+                    // if globaljackpot not set then set it to current jackpot value
+                    self.dbManager.saveGlobalJackpotAmount(amount: self.jackpot)
+                }else{
+                    self.jackpot = dbGlobalJackpot
+                }
+            }
+        }
+    }
+    
     override func didMove(to view: SKView) {
 
         // Main background
@@ -603,6 +634,8 @@ class GameScene: SKScene {
             if (winnerPaid > highestPayout)
             {
                 highestPayout = winnerPaid
+                // update highest payout amount to DB
+                dbManager.saveUserHighestPayout(amount: highestPayout)
             }
             if (earth == 3) {//When All 3 earth, then there is chance that you can win jackpot
                 checkJackpot()
@@ -615,6 +648,11 @@ class GameScene: SKScene {
             winnerPaid = 0
             // add 25% of bet amount to jackpot when player lose
             jackpot += (Int)(bets / 25)
+            if(jackpot > 100000){
+                jackpot = 100000
+            }
+            // update global jackpot value to DB
+            self.dbManager.saveGlobalJackpotAmount(amount: self.jackpot)
         }
         
         if (playerMoney < bets) {
@@ -636,6 +674,7 @@ class GameScene: SKScene {
             winnerPaid = jackpot
             playerMoney += winnerPaid
             jackpot = 5000
+            self.dbManager.saveGlobalJackpotAmount(amount: self.jackpot)
             showAlert(message: "Congratulations, You won jackpot of $\(winnerPaid)!!")
             resultLabel.text = "Congratulations,  You won jackpot of $\(winnerPaid)!!!!"
         }
